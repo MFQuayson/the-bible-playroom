@@ -2,6 +2,8 @@
 
 Bible lessons, games, creative activities and printable teaching packs for children aged 3 to 12, their families and Sunday school teachers.
 
+Live website: https://mfquayson.github.io/the-bible-playroom/
+
 ## Website files
 
 The website lives at the repository root. It uses plain HTML, CSS and JavaScript, with local images, fonts, audio and PDFs. No build command, server or paid application service is required for the current features.
