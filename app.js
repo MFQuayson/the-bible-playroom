@@ -3,6 +3,7 @@
 const $ = (s, root = document) => root.querySelector(s);
 const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 const storageKey = 'bible-playroom-v1';
+const episodeOne = Object.freeze({id:'episode-1', number:1, title:'Choosing the Right Path', passage:'Psalm 1:1–2', videoId:'cLXBJJ4xHZ4', ages:['3-5','6-8','9-12']});
 const ageGroups = {
   '3-5': {name:'Little Wonders', label:'Ages 3 to 5', minutes:20, home:8, support:'Explore with a grownup', choice:'Point, listen and choose a kind action together.', match:'Find three pairs of pictures with your grownup.', draw:'Draw or colour one way to show kindness today.'},
   '6-8': {name:'Curious Explorers', label:'Ages 6 to 8', minutes:30, home:12, support:'Play & learn with purpose', choice:'Little situations. Big chances to choose well.', match:'Turn, remember and find what belongs together.', draw:'Draw a kind choice you can make this week.'},
@@ -43,6 +44,7 @@ function updateSaved(){
   $('#saved-toggle').textContent=state.savedOnly?'← Show all activities':'♡ Show my saved activities';
 }
 function showDialog(action,content){
+  stopEpisode();
   if(dialog.open)stopGameAudio();
   if(!dialog.open)returnFocus=document.activeElement;
   currentAction=action;
@@ -72,8 +74,8 @@ const teaching = {
 function showLesson(tab='discover'){
  const g=ageGroups[state.age];const key=tab==='guide'?'teacher':tab;
  const tabs=`<div class="modal-toolbar" role="group" aria-label="Lesson sections"><button data-lesson-tab="discover" aria-pressed="${key==='discover'}">Bible discovery</button><button data-lesson-tab="teacher" aria-pressed="${key==='teacher'}">Teacher guide</button><button data-lesson-tab="home" aria-pressed="${key==='home'}">At home</button><a href="${packURL()}" download>Printable pack ↓</a></div>`;
- const body=`<span class="pill">${g.label} · ${g.name}</span>${progressHTML()}<div class="passage-box"><strong>Open your Bible to Psalm 1:1–2</strong>Read together in the NIV or Good News Bible. The explanations here are original lesson summaries, not Bible quotations.</div>${tabs}<div class="lesson-panel">${teaching[state.age][key]||teaching[state.age].discovery}</div>${key==='discover'?`<div class="modal-toolbar"><button data-action="choices">Play: choose the kind way ↗</button><button data-action="match">Try discovery match ↗</button><button data-action="draw">Make something ↗</button></div><button class="button dark" data-mark-discovery>${completed('discover')?'Bible discovery completed ✓':'We explored the Bible together ✓'}</button>`:''}<div class="video-pending"><span class="video-symbol" aria-hidden="true">▷</span><p><b>The first episode is on its way into the playroom.</b><br>This starter lesson and its activities work now. The finished video will appear here when it is supplied.</p></div>`;
- showDialog('lesson',shell('Good choices. Growing faith.','FIRST DISCOVERY · PSALM 1:1–2',body,'One Bible passage, three ways to grow. Everything in this room follows the age group you selected.'));
+ const body=`<span class="pill">${g.label} · ${g.name}</span>${progressHTML()}<div class="passage-box"><strong>Open your Bible to Psalm 1:1–2</strong>Read together in the NIV or Good News Bible. The explanations here are original lesson summaries, not Bible quotations.</div>${tabs}<div class="lesson-panel">${teaching[state.age][key]||teaching[state.age].discovery}</div>${key==='discover'?`<div class="modal-toolbar"><button data-action="choices">Play: choose the kind way ↗</button><button data-action="match">Try discovery match ↗</button><button data-action="draw">Make something ↗</button></div><button class="button dark" data-mark-discovery>${completed('discover')?'Bible discovery completed ✓':'We explored the Bible together ✓'}</button>`:''}<div class="lesson-episode-link"><div><span class="pill">EPISODE 1 · 5:05</span><h3>Watch Choosing the Right Path</h3><p>The same Psalm 1:1–2 adventure, with Teacher Abigail and friends. Your ${g.name} activities stay ready when you return.</p></div><button class="button dark" data-action="episode">Watch Episode 1 <span aria-hidden="true">▶</span></button></div>`;
+ showDialog('lesson',shell('Choosing the Right Path','EPISODE 1 · PSALM 1:1–2',body,'One Bible passage, three ways to grow. Everything in this room follows the age group you selected.'));
 }
 
 const questions={
@@ -124,8 +126,8 @@ function drawAction(tool){if(!draw)return;if(tool==='eraser'){draw.eraser=!draw.
 
 const friends={Mirielle:{css:'mirielle',description:'You’ll recognise Mirielle in her pink dress. She is one of the five familiar friends learning alongside Teacher Abigail.'},Leroy:{css:'leroy',description:'You’ll recognise Leroy in his checked shirt. He joins the friends as they explore God’s Word together.'},Hadassah:{css:'hadassah',description:'You’ll recognise Hadassah in her white daisy dress. She is part of our familiar Bible Playroom family.'},EastWood:{css:'eastwood',description:'You’ll recognise EastWood in his cream checked shirt and brown trousers. He learns alongside Abigail and the friends.'},Spendylove:{css:'spendylove',description:'You’ll recognise Spendylove in her yellow dress. She joins the friends in their Bible discoveries.'}};
 function showFriend(name){const f=friends[name];if(!f)return;showDialog('friend',shell(`Hello, ${name}!`,'MEET THE BIBLE PLAYROOM FRIENDS',`<div class="friend-modal"><span class="portrait portrait-${f.css}" role="img" aria-label="${name}, the approved cartoon character"></span><div><p>${f.description}</p><p style="margin-top:16px">Bring your own questions and ideas. There’s a place for you in the playroom too.</p><button class="button dark" style="margin-top:22px" data-action="lesson">Join the Bible discovery ↗</button></div></div>`));}
-function showAbout(){showDialog('about',shell('Faith. Friendship. A little fun.','WELCOME TO THE BIBLE PLAYROOM',`<div class="lesson-panel"><h3>One passage. A whole week to explore.</h3><p>Teacher Abigail and five familiar friends help bring Bible learning into everyday life. We’re making a home for episodes, matching teaching guides, games and printable activities.</p><h4>Three age groups</h4><p>Little Wonders, ages 3 to 5; Curious Explorers, ages 6 to 8; and Deep Thinkers, ages 9 to 12. The same Bible topic is adapted to how children listen, read, reason and create.</p><h4>The Friday rhythm</h4><p>Each finished video direction will shape its matching learning materials. New episode packs are intended to arrive on Fridays. This first edition has the Psalm 1:1–2 starter pack for all three groups. It does not yet publish new videos or materials automatically.</p><h4>On screen and around the table</h4><p>Play a short activity here, or take a printable into your family time or Sunday school class. The starter packs are available without payment.</p></div><button class="button dark" data-action="ages">Find your age group ↗</button>`));}
-function showPrivacy(){showDialog('privacy',shell('A little space. Thoughtfully kept.','PRIVACY & PLAYROOM SETTINGS',`<p class="intro">These learning activities do not ask children for a name, email address, photo or account. There are no advertising or analytics scripts in this first edition.</p><div class="privacy-setting"><h3>What stays on this device</h3><p>Your selected age group, favourite activities and completed activities are stored in this browser. They do not sync to other devices. Drawings stay in the current activity until you save them to your device or close the page.</p><p>The hosting service may process technical requests to deliver this site. This site’s current access setting is managed by its owner.</p><button class="danger-button" id="clear-progress">Clear this browser’s playroom data</button></div><div class="privacy-setting"><h3>Motion that feels comfortable</h3><p>Animations follow your device’s reduced motion setting. You can also pause decorative motion here.</p><button class="button outline" id="motion-toggle" aria-pressed="${state.reducedMotion}">${state.reducedMotion?'Turn decorative motion on':'Pause decorative motion'}</button></div>`));}
+function showAbout(){showDialog('about',shell('Faith. Friendship. A little fun.','WELCOME TO THE BIBLE PLAYROOM',`<div class="lesson-panel"><h3>One passage. A whole week to explore.</h3><p>Teacher Abigail and five familiar friends help bring Bible learning into everyday life. We’re making a home for episodes, matching teaching guides, games and printable activities.</p><h4>Three age groups</h4><p>Little Wonders, ages 3 to 5; Curious Explorers, ages 6 to 8; and Deep Thinkers, ages 9 to 12. The same Bible topic is adapted to how children listen, read, reason and create.</p><h4>The Friday rhythm</h4><p>Each finished video direction will shape its matching learning materials. New episode packs are intended to arrive on Fridays. Episode 1, Choosing the Right Path, is live with the Psalm 1:1–2 lessons for all three groups. New episodes and materials appear after review and approval.</p><h4>On screen and around the table</h4><p>Play a short activity here, or take a printable into your family time or Sunday school class. The starter packs are available without payment.</p></div><button class="button dark" data-action="ages">Find your age group ↗</button>`));}
+function showPrivacy(){showDialog('privacy',shell('A little space. Thoughtfully kept.','PRIVACY & PLAYROOM SETTINGS',`<p class="intro">These learning activities do not ask children for a name, email address, photo or account. We do not add our own advertising or analytics scripts. The YouTube player loads only when you choose to watch an episode.</p><div class="privacy-setting"><h3>What stays on this device</h3><p>Your selected age group, favourite activities and completed activities are stored in this browser. They do not sync to other devices. Drawings stay in the current activity until you save them to your device or close the page.</p><p>The hosting service may process technical requests to deliver this site. This site’s current access setting is managed by its owner.</p><button class="danger-button" id="clear-progress">Clear this browser’s playroom data</button></div><div class="privacy-setting"><h3>Watching an episode</h3><p>Choosing Watch connects to YouTube’s privacy enhanced embedded player. YouTube then handles video playback under its own terms and privacy settings. A grownup can also open the episode directly on YouTube.</p></div><div class="privacy-setting"><h3>Motion that feels comfortable</h3><p>Animations follow your device’s reduced motion setting. You can also pause decorative motion here.</p><button class="button outline" id="motion-toggle" aria-pressed="${state.reducedMotion}">${state.reducedMotion?'Turn decorative motion on':'Pause decorative motion'}</button></div>`));}
 // Every correct answer gets a small celebration, including inside the native dialog's top layer.
 function confetti(anchor){
  if(state.reducedMotion)return;
@@ -193,8 +195,9 @@ function toggleGameSound(){
  if(state.sound)playGameSound('correct');
 }
 
-function action(name){if(name==='ages')showAges();else if(name==='lesson')showLesson();else if(name==='guide')showLesson(state.setting==='home'?'home':'teacher');else if(name==='choices')startQuiz();else if(name==='match')startMatch();else if(name==='draw')startDraw();else if(name==='about')showAbout();else if(name==='privacy')showPrivacy();else if(name==='motion'){state.reducedMotion=!state.reducedMotion;applyMotion();toast(state.reducedMotion?'Decorative motion paused.':'Let’s bring the playroom to life.');}else if(name==='download'){const a=document.createElement('a');a.href=packURL();a.download=`bible-playroom-${state.age}.pdf`;a.click();toast(`Opening the ${ageLabel().toLowerCase()} printable pack.`);}}
+function action(name){if(name==='episode'){openEpisode();return;}if(name==='play-episode'){playEpisode();return;}if(name==='ages')showAges();else if(name==='lesson')showLesson();else if(name==='guide')showLesson(state.setting==='home'?'home':'teacher');else if(name==='choices')startQuiz();else if(name==='match')startMatch();else if(name==='draw')startDraw();else if(name==='about')showAbout();else if(name==='privacy')showPrivacy();else if(name==='motion'){state.reducedMotion=!state.reducedMotion;applyMotion();toast(state.reducedMotion?'Decorative motion paused.':'Let’s bring the playroom to life.');}else if(name==='download'){const a=document.createElement('a');a.href=packURL();a.download=`bible-playroom-${state.age}.pdf`;a.click();toast(`Opening the ${ageLabel().toLowerCase()} printable pack.`);}}
 document.addEventListener('click',e=>{
+ const episodeAge=e.target.closest('[data-episode-age]');if(episodeAge){chooseAge(episodeAge.dataset.episodeAge,false);showLesson();return;}
  if(e.target.closest('[data-game-sound]')){toggleGameSound();return;}
  const a=e.target.closest('[data-action]');if(a){action(a.dataset.action);return;}
  const age=e.target.closest('[data-age]');if(age){chooseAge(age.dataset.age);return;}
@@ -239,3 +242,29 @@ if ('IntersectionObserver' in window) {
  document.querySelectorAll('.hero-shell, .word-ribbon, .world-photo, .friday-banner').forEach(el => motionObserver.observe(el));
 }
 document.addEventListener('visibilitychange', () => document.documentElement.classList.toggle('page-asleep', document.hidden));
+
+// The approved episode loads on demand. No YouTube iframe or player script runs at page load.
+const episodePosterHTML = $('#episode-player').innerHTML;
+function stopEpisode(){
+ const player=$('#episode-player');
+ if(player?.querySelector('iframe')){player.innerHTML=episodePosterHTML;$('.episode-player-note').textContent='Tap to load the YouTube player. Watch with a grownup, then explore together.';}
+}
+function playEpisode(){
+ const player=$('#episode-player');
+ if(player.querySelector('iframe'))return;
+ stopGameAudio();
+ const frame=document.createElement('iframe');
+ frame.src=`https://www.youtube-nocookie.com/embed/${episodeOne.videoId}?playsinline=1&rel=0&autoplay=1`;
+ frame.title=`Episode 1: ${episodeOne.title} | The Bible Playroom`;
+ frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+ frame.allowFullscreen=true;
+ frame.referrerPolicy='strict-origin-when-cross-origin';
+ player.replaceChildren(frame);
+ $('.episode-player-note').textContent='YouTube player · Watch with a grownup, then explore the matching lesson.';
+}
+function openEpisode(){
+ if(dialog.open)dialog.close();
+ playEpisode();
+ $('#episode-1').scrollIntoView({behavior:state.reducedMotion?'auto':'smooth',block:'start'});
+ requestAnimationFrame(()=>{$('#episode-player iframe')?.focus({preventScroll:true});});
+}

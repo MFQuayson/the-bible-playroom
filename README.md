@@ -25,3 +25,9 @@ No child account is needed. Saved activities and progress stay in the visitor’
 ## Artwork
 
 Character illustrations, audio and teaching materials belong to The Bible Playroom. No public reuse licence is granted by this repository.
+
+## Episode 1
+
+[Choosing the Right Path](https://mfquayson.github.io/the-bible-playroom/#episode-1) features Psalm 1:1–2 with all three existing learning paths. The YouTube player loads on demand, with a direct watch link and matching lesson/PDF access. Only the video and its publication links were added; the approved teaching packs and character artwork are preserved.
+
+See [YouTube publishing options](docs/youtube-publishing.md) for the upload automation review. No upload watcher is enabled.

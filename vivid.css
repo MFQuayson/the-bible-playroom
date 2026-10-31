@@ -331,3 +331,34 @@ html:not(.js-motion) *,html:not(.js-motion) *:before,html:not(.js-motion) *:afte
  .button:hover,.age-card:hover,.lesson-visual:hover,.friend-card:hover{transform:none}
  .hero-children{translate:none!important}
 }
+
+/* Episode 1: the existing Playroom palette and tactile cards, with on-demand video. */
+.episode-feature-visual{min-height:0}
+.episode-poster-frame{display:block;position:relative;aspect-ratio:1672/941;overflow:hidden;background:var(--purple)}
+.episode-poster-frame>img{display:block;width:100%;height:100%;object-fit:contain}
+.episode-play-icon{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:72px;height:72px;padding-left:5px;background:var(--yellow);color:var(--purple);border:3px solid var(--ink);border-radius:50%;box-shadow:0 5px 0 var(--ink);font-size:29px;line-height:1}
+.lesson-actions{flex-wrap:wrap}.lesson-copy .small-note{max-width:490px}
+.watch-section{padding-top:90px;padding-bottom:40px;scroll-margin-top:30px}
+.episode-library-card{display:grid;grid-template-columns:1.25fr 1fr;gap:36px;align-items:start;border:2px solid var(--ink);background:#efe4ff;border-radius:30px;padding:28px;box-shadow:0 8px var(--ink);scroll-margin-top:35px}
+.episode-screen-column{min-width:0}.episode-player{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;min-height:200px;border:2px solid var(--ink);border-radius:19px;overflow:hidden;background:var(--deep-purple)}
+.episode-poster{display:block;position:absolute;inset:0;width:100%;height:100%;padding:0;background:var(--deep-purple);border:0;color:white}
+.episode-poster>img{display:block;width:100%;height:100%;object-fit:contain}
+.episode-poster .episode-play-icon{width:65px;height:65px;font-size:26px}
+.episode-play-label{position:absolute;left:0;right:0;bottom:0;padding:9px 12px;background:#2d136fef;color:white;font-weight:800;font-size:14px;text-align:center}
+.episode-player iframe{display:block;width:100%;height:100%;position:absolute;inset:0;border:0}
+.episode-player-note{font-size:14px;line-height:1.7;color:#66516f;margin-top:15px}.episode-youtube{font-size:15px;color:var(--purple)}
+.episode-library-copy>.pill{font-size:11px;background:var(--yellow);border-color:var(--ink)}
+.episode-library-copy h3{font:800 clamp(28px,3vw,41px)/1.08 var(--display);letter-spacing:-1px;margin-top:18px}
+.episode-library-copy>p{font-size:17px;line-height:1.75;margin-top:15px;color:#66516f}
+.episode-library-copy h4{letter-spacing:-.2px;font:800 20px/1.3 var(--display);margin-top:25px}.episode-library-copy>.episode-age-help{font-size:15px;line-height:1.6;margin-top:9px}
+.episode-age-links{display:grid;gap:10px;margin-top:16px}.episode-age-links>button{border:2px solid var(--ink);border-radius:13px;background:#fffaf0;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:58px;padding:11px 14px;text-align:left;transition:transform .2s}
+.episode-age-links>button:first-child{background:#ffb6dc}.episode-age-links>button:nth-child(2){background:#c6f389}.episode-age-links>button:nth-child(3){background:#bca6ff}
+.episode-age-links b{font-size:15px;line-height:1.3}.episode-age-links>button>span{white-space:nowrap;font-size:13px}.episode-age-links>button:hover{transform:translateX(3px)}
+.episode-library-footer{display:flex;align-items:center;justify-content:space-between;gap:25px;margin-top:32px}.episode-library-footer p{font-size:17px;line-height:1.7;color:#66516f}.episode-library-footer .button{font-size:15px}
+.lesson-episode-link{margin-top:27px;padding:23px;background:#efe4ff;border:2px solid var(--purple);border-radius:20px}.lesson-episode-link h3{font:800 27px/1.2 var(--display);margin-top:13px}.lesson-episode-link p{font-size:16px;line-height:1.75;margin-top:12px}.lesson-episode-link .button{margin-top:18px;font-size:15px}
+@media(min-width:721px) and (max-width:1050px){.site-header nav{display:none;position:absolute;top:84px;left:0;right:0;background:var(--deep-purple);padding:20px;box-shadow:0 10px 15px #40262310;border-bottom:1px solid #ffffff33;flex-direction:column;gap:0;z-index:100}.site-header nav.mobile-open{display:flex}.site-header nav a{font-size:15px;padding:13px 5px}.mobile-menu{display:block;width:44px;height:44px;font-size:20px;background:var(--yellow);color:var(--ink);border-radius:50%}}
+@media(max-width:950px){.episode-library-card{gap:25px;padding:22px;grid-template-columns:1fr 1fr}.episode-library-copy h3{font-size:31px}.episode-age-links>button{flex-wrap:wrap;gap:5px}.episode-library-copy>p{font-size:16px}}
+@media(max-width:720px){
+ .watch-section{padding-top:60px;padding-bottom:20px}.episode-library-card{grid-template-columns:1fr;gap:27px;padding:17px;border-radius:23px;scroll-margin-top:20px}.episode-player{border-radius:14px}.episode-play-icon{width:60px;height:60px;font-size:25px}.episode-poster .episode-play-icon{width:57px;height:57px;font-size:24px}.episode-play-label{font-size:13px;padding:8px}.episode-library-copy h3{font-size:34px}.episode-library-copy>p{font-size:17px}.episode-age-links>button{flex-wrap:nowrap;min-height:64px;padding:12px}.episode-age-links b{font-size:15px}.episode-age-links>button>span{font-size:12px}.episode-library-footer{align-items:flex-start;flex-direction:column;gap:18px}.episode-library-footer .button{font-size:15px}.lesson-episode-link{padding:18px}.lesson-episode-link h3{font-size:26px}.episode-feature-visual .lesson-picture-caption>span:first-child,.episode-feature-visual .lesson-picture-caption>b{font-size:30px}
+}
+@media(max-width:380px){.episode-age-links>button{align-items:flex-start;flex-direction:column;gap:5px}.episode-library-copy h3{font-size:30px}.episode-play-label{font-size:12px}.lesson-copy h2{font-size:42px}}
