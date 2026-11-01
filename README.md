@@ -31,3 +31,8 @@ Character illustrations, audio and teaching materials belong to The Bible Playro
 [Choosing the Right Path](https://mfquayson.github.io/the-bible-playroom/#episode-1) features Psalm 1:1–2 with all three existing learning paths. The YouTube player loads on demand, with a direct watch link and matching lesson/PDF access. Only the video and its publication links were added; the approved teaching packs and character artwork are preserved.
 
 See [YouTube publishing options](docs/youtube-publishing.md) for the upload automation review. No upload watcher is enabled.
+
+
+## Episode 1 compact lessons and games
+
+The compact journey includes Bible meaning, one discussion question at a time, the age-specific game, colouring downloads, and remembering/praying. Path Picker and The Choice Challenge use the authored Command Centre scene scripts. See [release and verification notes](docs/episode-1-release.md). Run `node tests/episode-1.cjs` for game mappings, progress preservation and asset checks. GitHub Pages still publishes main at the repository root.
